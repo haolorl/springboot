@@ -37,7 +37,7 @@ public class SpringSecurity {
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/contact").permitAll()
-                                .requestMatchers("/shop").permitAll()
+                                .requestMatchers("/shop/**").permitAll()
                                 .requestMatchers("/blog").permitAll()
                                 .requestMatchers("/about").permitAll()
                                 .requestMatchers("/cart").permitAll()

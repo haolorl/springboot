@@ -3,7 +3,10 @@ package net.enjoy.springboot.registrationlogin.controller;
 import net.enjoy.springboot.registrationlogin.dto.ProductDetailDto;
 import net.enjoy.springboot.registrationlogin.dto.ProductDto;
 import net.enjoy.springboot.registrationlogin.service.CategoryService;
+import net.enjoy.springboot.registrationlogin.service.ColorService;
 import net.enjoy.springboot.registrationlogin.service.ProductService;
+import net.enjoy.springboot.registrationlogin.service.SizeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +22,11 @@ import java.util.List;
 public class ProductController {
     private ProductService productService;
     private CategoryService categoryService;
+    @Autowired
+    private SizeService sizeService;
+
+    @Autowired
+    private ColorService colorService;
 
     @Autowired
     public void setProductService(ProductService productService, CategoryService categoryService) {
@@ -34,25 +42,38 @@ public class ProductController {
         model.addAttribute("products", products);
 
         //get all category
-        model.addAttribute("categories", categoryService.findAllCategory());
+        model.addAttribute("    ", categoryService.getAllCategory());
         return "index";
     }
 
     @GetMapping("/shop")
-    public String shop(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size, @RequestParam(value = "sizeId", required = false) Long sizeId, @RequestParam(value = "colorId", required = false) Long colorId, @RequestParam(value = "categoryId", required = false) Long categoryId, @RequestParam(defaultValue="0") Long minPrice,@RequestParam(defaultValue="999999999")Long maxPrice, @RequestParam(value = "name", required = false) String name) {
+    public String shop(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size,
+     @RequestParam(value = "sizeId", required = false) Long sizeId, @RequestParam(value = "colorId", required = false) Long colorId,
+      @RequestParam(value = "categoryId", required = false) Long categoryId, @RequestParam(defaultValue="0") Long minPrice,
+      @RequestParam(defaultValue="999999999")Long maxPrice, @RequestParam(value = "name", required = false) String name) {
+
         Pageable pageable = PageRequest.of(page, size);
         Page<ProductDto> products;
-        if (sizeId == null && colorId == null && categoryId == null && name == null) {
-            products = productService.findAllProduct(pageable);
-            System.out.println("products = " + products);
-        }
-        else {
+        // if (sizeId == null && colorId == null && categoryId == null && name == null) {
+        //     products = productService.findAllProduct(pageable);
+        //     System.out.println("products = " + products);
+        // }
+        // else if(sizeId == null && colorId == null && categoryId == null && name != null){
+        //     products = productService.searchProduct(pageable, name);
+        //     System.out.println("products1 = " + products);
+        // }
+        // else {
             products = productService.searchProduct(sizeId, colorId, categoryId, minPrice, maxPrice, pageable, name);
             System.out.println("products1 = " + products);
-        }
+        // }
         model.addAttribute("products", products);
+        model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("sizes", sizeService.getAllSizes());
+        model.addAttribute("colors", colorService.getAllColors());
+
         return "shop";
     }
+
 
     @GetMapping("/product_detail")
     public String productDetail(Model model, @RequestParam(value = "id", required = false) Long idProduct) {

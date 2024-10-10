@@ -98,6 +98,28 @@ button.white {
     position: relative;
 }
 
+#navbar li form input[type="text"] {
+    border: none;
+    padding: 6px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-right: 8px;
+    font-size: 17px;
+    border-radius: 4px;
+}
+#navbar li form button:hover {
+    background-color: #111;
+}
+
+#navbar li form button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 4px;
+}
 #navbar li a {
     text-decoration: none;
     font-size: 18px;
@@ -585,7 +607,7 @@ footer .copyright {
     border-radius: 4px;
     font-weight: 600;
     color: black;
-    background-color: gray;!important;
+    background-color: gray;
 }
 
 /* Single Products */

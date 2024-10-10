@@ -29,6 +29,11 @@ public interface ProductsRepository extends PagingAndSortingRepository<Product, 
             @Param("name") String name
     );
 
+    @Query("SELECT p FROM Product p WHERE (:name IS NULL OR p.name LIKE CONCAT('%', :name, '%'))")
+Page<Product> findbyFilter(
+    Pageable pageable,
+    @Param("name") String name
+);
 
     Product findById(Long id);
 

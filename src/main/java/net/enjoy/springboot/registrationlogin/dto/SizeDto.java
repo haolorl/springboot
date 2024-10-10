@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDto {
+public class SizeDto {
     private Long id;
-    private String Catename;
+    private String Sname;
 }

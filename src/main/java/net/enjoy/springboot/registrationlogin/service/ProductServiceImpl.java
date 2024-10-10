@@ -36,6 +36,12 @@ public class ProductServiceImpl implements ProductService {
         Page<Product> products = productsRepository.findbyFilter(sizeId, colorId, categoryId, minPrice, maxPrice, pageable, name);
         return products.map(this::convertEntityToDto);
     }
+    
+    @Override
+    public Page<ProductDto> searchProduct(Pageable pageable, String name) {
+        Page<Product> products = productsRepository.findbyFilter(pageable, name);
+        return products.map(this::convertEntityToDto);
+    }
 
     @Override
     public ProductDto findById(Long id) {
